@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ device_name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'iot:update_device' device.city_holder.accountHolder_id device.accountHolder_id %}" method="post">
+{% csrf_token %}
+
+<p><b>Latitude:</b> {{device.latitude}}</p>
+<p><b>Longitude:</b> {{device.longitude}}</p>
+
+<p>
+    <b>Status:</b> {{device.status}}
+    {% if device.status == status.WORKING %}
+        <input type="radio" id="status_not_working" name="status" value="not working">
+            <label for="status_not_working">Not Working</label>
+        <input type="radio" id="status_maintenance" name="status" value="maintenance">
+            <label for="status_maintenance">Under Maintenance</label>
+    {% elif device.status == status.NOT_WORKING %}
+        <input type="radio" id="status_working" name="status" value="working">
+            <label for="status_working">Working</label>
+        <input type="radio" id="status_maintenance" name="status" value="maintenance">
+            <label for="status_maintenance">Under Maintenance</label>
+    {% elif device.status == status.UNDER_MAINTENANCE %}
+        <input type="radio" id="status_working" name="status" value="working">
+            <label for="status_working">Working</label>
+        <input type="radio" id="status_not_working" name="status" value="not working">
+            <label for="status_not_working">Not Working</label>
+    {% endif %}
+</p>
+
+
+
+<p>
+    <b>Enabled:</b> {{device.enabled}}
+
+    {% if device.enabled == False %}
+        <input type="checkbox" id="enable" name="enable_disable" value="enable">
+            <label for="enable">Enable</label><br>
+    {% else %}
+        <input type="checkbox" id="disable" name="enable_disable" value="disable">
+            <label for="disable">Disable</label><br>
+    {% endif %}
+
+</p>
+
+{% if device_name == "Street Sign" %}
+<p><b>Text:</b> {{device.text}}
+
+    <input type="text" name="streetsign_text" id="streetsign_text">
+
+</p>
+
+{% endif %}
+
+{% if device_name == "Street Light" %}
+<p><b>Brightness:</b> {{device.brightness}}</p>
+{% endif %}
+
+<input type="submit" value="Change">
+</form>
+
+{% endblock %}

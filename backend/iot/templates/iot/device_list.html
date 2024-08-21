@@ -1,0 +1,15 @@
+{% extends "iot/base.html" %}
+
+{% block content %}
+
+{% if device_list %}
+    <ul>
+    {% for device in device_list %}
+        <li><a href="{% url 'iot:device_detail' device.pk %}">{{ device }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No device registered.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "iot/base.html" %}
+
+{% block content %}
+
+{% if resident_list %}
+    <ul>
+    {% for resident in resident_list %}
+        <li><a href="{% url 'iot:resident_detail' resident.person_id %}">{{ resident.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No resident registered.</p>
+{% endif %}
+
+{% endblock %}

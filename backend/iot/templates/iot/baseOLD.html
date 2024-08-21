@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+
+  <link rel="stylesheet" type="text/css" href="{% static 'iot\style.css' %}">
+
+</head>
+<body>
+
+<div class="topnav">
+    <a class="active" href="{% url 'iot:city_list' %}">Cities</a>
+    <a href="{% url 'iot:device_list' %}">Devices</a>
+    <a href="{% url 'iot:resident_list' %}">Residents</a>
+</div>
+
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

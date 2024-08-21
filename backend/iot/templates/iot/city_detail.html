@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ city.name }}</h1>
+
+<h2>Devices at {{ city.name }}</h2>
+
+{% for device_type, device_list in device_lists.items %}
+
+    {% if device_list %}
+    <div class="row">
+        <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+            <h4 class="card-title ">Devices</h4>
+            <p class="card-category">{{device_type}}</p>
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                <thead class=" text-primary">
+                    <th>
+                    Name
+                    </th>
+                    <th>
+                    Account Balance
+                    </th>
+                    <th>
+                    Latitude
+                    </th>
+                    <th>
+                    Longitude
+                    </th>
+                </thead>
+                <tbody>
+                    {% for device_obj in device_list %}
+                    <tr>
+                    <td>
+                        <a href="#">{{ device_obj.get_name }}</a>
+                    </td>
+                    <td>
+                        $ {{ device_obj.account.balance }}
+                    </td>
+                    <td>
+                        {{ device_obj.latitude }}
+                    </td>
+                    <td>
+                        {{ device_obj.longitude }}
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+    {% else %}
+        <p>No {{ device_type }}.</p>
+    {% endif %}
+
+{% endfor %}
+
+{% endblock %}
